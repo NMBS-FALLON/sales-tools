@@ -1,0 +1,8 @@
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\bin\Debug\netstandard2.0\sales-tools-library.deps.json
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\bin\Debug\netstandard2.0\sales-tools-library.dll
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\bin\Debug\netstandard2.0\sales-tools-library.pdb
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\obj\Debug\netstandard2.0\sales-tools-library.fsprojAssemblyReference.cache
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\obj\Debug\netstandard2.0\sales-tools-library.AssemblyInfoInputs.cache
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\obj\Debug\netstandard2.0\sales-tools-library.AssemblyInfo.fs
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\obj\Debug\netstandard2.0\sales-tools-library.dll
+C:\Users\darien.shannon\code\DESign\sales-tools\src\sales-tools-library\obj\Debug\netstandard2.0\sales-tools-library.pdb

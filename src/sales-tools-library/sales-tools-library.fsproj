@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>sales_tools</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="SpreadSheetML.Helpers.fs" />
+    <Compile Include="sei-takeoff\DTO.fs" />
+    <Compile Include="sei-takeoff\Domain.fs" />
+    <Compile Include="sei-takeoff\Import.fs" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
