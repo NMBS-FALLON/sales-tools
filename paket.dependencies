@@ -3,6 +3,7 @@ source https://www.nuget.org/api/v2
 nuget NETStandard.Library.NETFramework
 nuget FSharp.Core
 nuget DocumentFormat.OpenXml
+nuget EPPlus --version 4.5.3.1
 
 
 // [ FAKE GROUP ]
