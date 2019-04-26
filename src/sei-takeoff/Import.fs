@@ -1,6 +1,7 @@
 module Design.SalesTools.Sei.Import 
 
 open System
+open DocumentFormat.OpenXml
 open DocumentFormat.OpenXml.Packaging
 open DocumentFormat.OpenXml.Spreadsheet
 open FSharp.Core
@@ -82,10 +83,7 @@ let GetJoists(takeoff : Takeoff) =
 
     joistDtos
     |> Seq.map Joist.Parse
-    |> Seq.mapi (fun i r ->
-                    match r with
-                    | Ok j -> Ok {j with Id = i + 1}
-                    | Error msg -> Error msg )
+    |> Seq.mapi (fun i j -> {j with Id = i + 1})
 
 
 

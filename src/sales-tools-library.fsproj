@@ -5,10 +5,14 @@
     <RootNamespace>sales_tools</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="sei-takeoff\BLANK SALES BOM.xlsm" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="SpreadSheetML.Helpers.fs" />
     <Compile Include="sei-takeoff\DTO.fs" />
     <Compile Include="sei-takeoff\Domain.fs" />
     <Compile Include="sei-takeoff\Import.fs" />
+    <Compile Include="sei-takeoff\CreateTakeoff.fs" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

@@ -1,13 +1,15 @@
 module Design.SalesTools.Sei.Domain
 open Design.SalesTools.Sei.Dto
 open System
+open DocumentFormat.OpenXml.Spreadsheet
+open DocumentFormat.OpenXml.Spreadsheet
 
 let handleWithFailure result =
     match result with
     | Ok r -> r
     | Error msg -> failwith msg
 
-type FeetRepresentation =
+type FeetRepresentation =  // 50.11 = 50'-11"
     FeetDotInch of string
         override this.ToString() =
             match this with
@@ -49,7 +51,7 @@ type InchRepresentation =
         
 type PitchType =
     | ``AC PP``
-    | ``AX PR``
+    | ``AC PR``
     | BS
     | DP
     |``DP SE``
@@ -66,7 +68,7 @@ type PitchType =
     static member Parse pitchType =
         match pitchType with
         | "AC PP" -> ``AC PP`` 
-        | "AX PR" -> ``AX PR`` 
+        | "AX PR" -> ``AC PR`` 
         | "BS" -> BS 
         | "DP" -> DP 
         | "DP SE" -> ``DP SE`` 
@@ -103,6 +105,21 @@ type AxialType =
         | "W/S" -> WS
         | "B" -> B
 
+type AxialTransferTrype =
+    | TP
+    | KP
+    | Seat
+    | Zero
+    | PUTC
+
+    static member Parse axialTransferType =
+        match axialTransferType with
+        | "TP" -> TP
+        | "KP" -> KP
+        | "Seat" -> Seat
+        | "0.0" -> Zero
+        | "PUTC" -> PUTC
+
 type Load = Load of string
 
 type Joist =
@@ -128,22 +145,40 @@ type Joist =
             | None -> ""
         let quantity =
             match joistDto.Quantity with
-            | Some q -> Ok q
-            | None -> Error (sprintf "Mark %s does not have a quantity" takeoffMark)
+            | Some q -> q
+            | None -> failwith (sprintf "Mark %s does not have a quantity" takeoffMark)
         let designation =
-            match joistDto.Designation with
-            | Some d -> d.Replace(" ", "") |> Ok
-            | None -> Error (sprintf "Mark %s does not have a section number / load designation" takeoffMark)
+            let depth =
+                match joistDto.Depth with
+                | Some depth -> depth
+                | None -> failwith (sprintf "Mark %s does not have a depth" takeoffMark)
+            let series =
+                match joistDto.Series with
+                | Some s -> s.Replace(" ", "")
+                | None -> failwith (sprintf "Mark %s does not have a series" takeoffMark)
+            let section =
+                match joistDto.Designation with
+                | Some d -> d.Replace(" ", "")
+                | None -> ""
+            
+            depth.ToString() + series + section
+
         let baseLength = 
             match joistDto.BaseLength with
             Some bl ->
                 try
-                    FeetDotInch(bl).ToFeet() |> Ok
+                    FeetDotInch(bl).ToFeet()
                 with
-                | _ -> Error (sprintf "Mark %s's base length is in an improper format" takeoffMark)
-            | None -> Error (sprintf "Mark %s does not have a base length" takeoffMark)
+                | _ -> failwith (sprintf "Mark %s's base length is in an improper format" takeoffMark)
+            | None -> failwith (sprintf "Mark %s does not have a base length" takeoffMark)
         let slope = joistDto.Slope |> Option.defaultValue 0.0
         let pitchType = joistDto.PitchType |> Option.map PitchType.Parse
+
+        let adjustedBaseLength =
+            match pitchType with
+            | Some SP | Some ``SP SE`` -> ((baseLength**2.) + (baseLength*slope/12.)**2.)**0.5
+            | _ -> baseLength
+
         let seatDepthLeft =
             joistDto.SeatDepthLeft
             |> Option.map
@@ -151,7 +186,7 @@ type Joist =
                     try
                         InchDotFraction(d).ToInch()
                     with
-                    | _ -> failwith (sprintf "Mark %s's seat depth at the lef tis in an imporper format" takeoffMark) )
+                    | _ -> failwith (sprintf "Mark %s's seat depth at the left is in an imporper format" takeoffMark) )
         let seatDepthRight =
             joistDto.SeatDepthRight
             |> Option.map
@@ -159,7 +194,7 @@ type Joist =
                     try
                         InchDotFraction(d).ToInch()
                     with
-                    | _ -> failwith (sprintf "Mark %s's seat depth at the left is in an imporper format" takeoffMark) )
+                    | _ -> failwith (sprintf "Mark %s's seat depth at the right is in an imporper format" takeoffMark) )
         
         let tcxlLength =
             joistDto.TcxlLength
@@ -183,24 +218,12 @@ type Joist =
 
         let tcxrType = joistDto.TcxrType |> Option.map TcxType.Parse
         let loads = [] |> List.toSeq
-        let joist =
-            let isOk result =
-                match result with
-                | Ok _ -> true
-                | _ -> false
-            
-            let getError result =
-                match result with
-                | Ok _ -> ""
-                | Error msg -> msg
-
-            match (quantity |> isOk, designation |> isOk, baseLength |> isOk) with
-            | true, true, true   ->         
+        let joist =       
                 { Id = 0
                   TakeoffMark = takeoffMark
-                  Quantity = quantity |> handleWithFailure
-                  Designation = designation |> handleWithFailure
-                  BaseLength = baseLength |> handleWithFailure
+                  Quantity = quantity 
+                  Designation = designation 
+                  BaseLength = adjustedBaseLength 
                   Slope = slope
                   PitchType = pitchType
                   SeatDepthLeft = seatDepthLeft
@@ -210,13 +233,7 @@ type Joist =
                   TcxrLength = tcxrLength
                   TcxrType = tcxrType
                   Loads = loads
-                } |> Ok
-            | _ ->
-                let errors =
-                    seq { if not (isOk quantity) then yield getError quantity
-                          if not (isOk designation) then yield getError designation
-                          if not (isOk baseLength) then yield getError baseLength }
-                Error errors
+                } 
         joist
            
         
