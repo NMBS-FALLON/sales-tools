@@ -12,7 +12,7 @@ open DocumentFormat.OpenXml.Spreadsheet
 open DocumentFormat.OpenXml.Spreadsheet
 
 let CreateTakeoff seiTakeoffFileName =
-
+    // let seiTakeoffFileName = @"C:\Users\darien.shannon\code\sales-tools\test-work-books\broken.xlsm"
     use bom = GetTakeoff seiTakeoffFileName
     let joists = GetJoists bom   
 

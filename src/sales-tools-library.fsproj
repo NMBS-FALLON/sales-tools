@@ -5,7 +5,7 @@
     <RootNamespace>sales_tools</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="sei-takeoff\BLANK SALES BOM.xlsm" />
+    <EmbeddedResource Include="resources\BLANK SALES BOM.xlsm" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SpreadSheetML.Helpers.fs" />

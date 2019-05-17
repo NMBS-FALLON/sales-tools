@@ -20,7 +20,10 @@ type FeetRepresentation =  // 50.11 = 50'-11"
             | [|ftString|] -> FSharp.Core.float.Parse ftString
             | [|ftString; inString|] ->
                 let ftFloat = FSharp.Core.float.Parse ftString
-                let inFloat = FSharp.Core.float.Parse inString
+                let inFloat =
+                    match inString |> Seq.toList with
+                    | [single] -> FSharp.Core.float.Parse (string single + "0")
+                    | _ -> FSharp.Core.float.Parse (inString.[0..1])
                 (ftFloat + inFloat / 12.0)
             | _ -> failwith (sprintf "Expecting a 'Feet Dot Inch' but received %s" asString)
 

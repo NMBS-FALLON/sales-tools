@@ -42,8 +42,11 @@ let GetTakeoff(takeoffFileName : string) =
       StringTable = GetStringTable document
       TakeoffSheet = getTakeoffSheet document |> handleWithFailwith}
 
+
+
 // let takeoff = GetTakeoff takeoffFileName
 let GetJoists(takeoff : Takeoff) =
+    //let takeoff = GetTakeoff(@"C:\Users\darien.shannon\code\sales-tools\test-work-books\broken.xlsm")
     let takeoffSheet = takeoff.TakeoffSheet
     let firstRowNum = 5u
     let lastRowNum = 10000u
@@ -53,6 +56,7 @@ let GetJoists(takeoff : Takeoff) =
         rows
         |> Seq.map
                (fun row ->
+               //let row = rows |> Seq.item 3
                { JoistDto.Mark = row |> takeoff.TryGetCellValueAtColumnAsString "A"
                  JoistDto.Quantity = row |> takeoff.TryGetCellValueAtColumnWithType<int> "B"
                  JoistDto.Depth = row |> takeoff.TryGetCellValueAtColumnWithType<float> "C"
