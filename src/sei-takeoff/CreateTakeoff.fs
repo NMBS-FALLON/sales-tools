@@ -1,15 +1,11 @@
 module Design.SalesTools.Sei.CreateTakeoff
-open Design.SalesTools.Sei.Dto
+
 open System
 open OfficeOpenXml
 open System.IO
 open System.Reflection
-open OfficeOpenXml
-open OfficeOpenXml
 open Design.SalesTools.Sei.Import
-open DocumentFormat.OpenXml.Spreadsheet
-open DocumentFormat.OpenXml.Spreadsheet
-open DocumentFormat.OpenXml.Spreadsheet
+
 
 let CreateTakeoff seiTakeoffFileName =
     // let seiTakeoffFileName = @"C:\Users\darien.shannon\code\sales-tools\test-work-books\broken.xlsm"
@@ -17,7 +13,7 @@ let CreateTakeoff seiTakeoffFileName =
     let joists = GetJoists bom   
 
     let assembly = Assembly.GetExecutingAssembly()
-    let blankSalesBomResourceName = "sales_tools.sei_takeoff.BLANK SALES BOM.xlsm"
+    let blankSalesBomResourceName = "sales_tools.resources.BLANK SALES BOM.xlsm"
     use blankSalesBomStream = assembly.GetManifestResourceStream(blankSalesBomResourceName)
     use package = new ExcelPackage(blankSalesBomStream)
     let mutable rowCount = 1

@@ -1,8 +1,7 @@
 module Design.SalesTools.Sei.Domain
 open Design.SalesTools.Sei.Dto
 open System
-open DocumentFormat.OpenXml.Spreadsheet
-open DocumentFormat.OpenXml.Spreadsheet
+
 
 let handleWithFailure result =
     match result with
