@@ -49,29 +49,29 @@ let GetJoists(takeoff : Takeoff) =
             //let row = 7
             yield
                //let row = rows |> Seq.item 3
-               { JoistDto.Mark = (takeoff.TakeoffSheet, row, "A") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.Quantity = (takeoff.TakeoffSheet, row, "B") |||> TryGetCellValueAtColumnWithType<int> |> handleWithFailure
-                 JoistDto.Depth = (takeoff.TakeoffSheet, row, "C") |||> TryGetCellValueAtColumnWithType<float> |> handleWithFailure
-                 JoistDto.Series = (takeoff.TakeoffSheet, row, "D") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.Designation = (takeoff.TakeoffSheet, row, "E") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.BaseLength = (takeoff.TakeoffSheet, row, "F") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.Slope = (takeoff.TakeoffSheet, row, "R") |||> TryGetCellValueAtColumnWithType<float> |> handleWithFailure
-                 JoistDto.PitchType = (takeoff.TakeoffSheet, row, "S") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.SeatDepthLeft = (takeoff.TakeoffSheet, row, "U") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.SeatDepthRight = (takeoff.TakeoffSheet, row, "V") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.TcxlLength = (takeoff.TakeoffSheet, row, "AC") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.TcxlType = (takeoff.TakeoffSheet, row, "AB") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.TcxrLength = (takeoff.TakeoffSheet, row, "AD") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.TcxrType = (takeoff.TakeoffSheet, row, "AE") |||> TryGetCellValueAtColumnAsString
+               { JoistDto.Mark = (takeoff.TakeoffSheet, row, "A") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.Quantity = (takeoff.TakeoffSheet, row, "B") |> TryGetValue<int> |> handleWithFailure
+                 JoistDto.Depth = (takeoff.TakeoffSheet, row, "C") |> TryGetValue<float> |> handleWithFailure
+                 JoistDto.Series = (takeoff.TakeoffSheet, row, "D") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.Designation = (takeoff.TakeoffSheet, row, "E") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.BaseLength = (takeoff.TakeoffSheet, row, "F") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.Slope = (takeoff.TakeoffSheet, row, "R") |> TryGetValue<float> |> handleWithFailure
+                 JoistDto.PitchType = (takeoff.TakeoffSheet, row, "S") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.SeatDepthLeft = (takeoff.TakeoffSheet, row, "U") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.SeatDepthRight = (takeoff.TakeoffSheet, row, "V") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.TcxlLength = (takeoff.TakeoffSheet, row, "AC") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.TcxlType = (takeoff.TakeoffSheet, row, "AB") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.TcxrLength = (takeoff.TakeoffSheet, row, "AD") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.TcxrType = (takeoff.TakeoffSheet, row, "AE") |> TryGetValue<string> |> handleWithFailure
                  JoistDto.AddLoad =
-                    let asString = (takeoff.TakeoffSheet, row, "AH") |||> TryGetCellValueAtColumnAsString
+                    let asString = (takeoff.TakeoffSheet, row, "AH") |> TryGetValue<string> |> handleWithFailure
                     asString |> Option.map (fun v -> FSharp.Core.float.Parse (v.Replace("K", "").Replace("k", "")))
-                 JoistDto.NetUplift = (takeoff.TakeoffSheet, row, "AI") |||> TryGetCellValueAtColumnWithType<float> |> handleWithFailure
+                 JoistDto.NetUplift = (takeoff.TakeoffSheet, row, "AI") |> TryGetValue<float> |> handleWithFailure
                  JoistDto.AxialLoad =
-                    let asString = (takeoff.TakeoffSheet, row, "AK") |||> TryGetCellValueAtColumnAsString
+                    let asString = (takeoff.TakeoffSheet, row, "AK") |> TryGetValue<string> |> handleWithFailure
                     asString |> Option.map (fun v -> FSharp.Core.float.Parse (v.Replace("K", "").Replace("k", "")))
-                 JoistDto.AxialType = (takeoff.TakeoffSheet, row, "AL") |||> TryGetCellValueAtColumnAsString
-                 JoistDto.Notes = (takeoff.TakeoffSheet, row, "AT") |||> TryGetCellValueAtColumnAsString } ]
+                 JoistDto.AxialType = (takeoff.TakeoffSheet, row, "AL") |> TryGetValue<string> |> handleWithFailure
+                 JoistDto.Notes = (takeoff.TakeoffSheet, row, "AT") |> TryGetValue<string> |> handleWithFailure } ]
         
         
 

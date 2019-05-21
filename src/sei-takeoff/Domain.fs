@@ -152,8 +152,8 @@ type Joist =
         let designation =
             let depth =
                 match joistDto.Depth with
-                | Some depth -> depth
-                | None -> failwith (sprintf "Mark %s does not have a depth" takeoffMark)
+                | Some depth -> depth.ToString()
+                | None -> ""
             let series =
                 match joistDto.Series with
                 | Some s -> s.Replace(" ", "")
