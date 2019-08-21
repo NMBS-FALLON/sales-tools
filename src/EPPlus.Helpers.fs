@@ -1,4 +1,3 @@
-open OfficeOpenXml.Helpers
 module OfficeOpenXml.Helpers
 
 open System

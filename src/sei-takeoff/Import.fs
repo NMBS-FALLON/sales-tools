@@ -10,12 +10,12 @@ open OfficeOpenXml.Helpers
 let getTakeoffSheet (package : ExcelPackage) =
     let possibleSheet =
         package.Workbook.Worksheets
-        |> Seq.where (fun sheet -> sheet.Name.Contains("Jst."))
+        |> Seq.where (fun sheet -> sheet.Name.ToUpper().Contains("JST.") || sheet.Name.ToUpper().Contains("TAKEOFF"))
         |> Seq.tryHead
 
     match possibleSheet with
     | Some sheet -> Ok sheet
-    | None -> Error "Takeoff does not contain a sheet with the name 'Jst.TO'"
+    | None -> Error "Takeoff does not contain a sheet with the name 'Jst.TO' or 'Takeoff', please rename the sheet with the takeoff and re-try."
 
 type Takeoff =
     { Package : ExcelPackage

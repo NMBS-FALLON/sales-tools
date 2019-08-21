@@ -10,7 +10,7 @@ open Design.SalesTools.Sei.Import
 
 
 
-let seiTakeoffFileName = @"C:\Users\darien.shannon\code\sales-tools\test-work-books\sei\broken.xlsm"
+let seiTakeoffFileName = @"C:\Users\darien.shannon\code\sales-tools\test-work-books\sei\31733 2019.05.21 RFP Joist.xlsm"
 
 
 let printJoists () =
